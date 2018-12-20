@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@pusher/chatkit-client": "^1.2.2",
     "@pusher/chatkit-server": "^1.0.4",
     "cors": "^2.8.4",
     "express": "^4.16.3",
