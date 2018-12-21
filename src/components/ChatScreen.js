@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Chatkit from '@pusher/chatkit-client'
 import MessageList from './MessageList'
 import SendMessageForm from './SendMessageForm'
+import TypingIndicator from './TypingIndicator'
 
 class ChatScreen extends Component {
 constructor(props) {
@@ -9,9 +10,17 @@ constructor(props) {
   this.state = {
     currentUser: {},
     currentRoom: {},
-    messages: []
+    messages: [],
+    usersWhoAreTyping: [],
   }
   this.sendMessage = this.sendMessage.bind(this)
+  this.sendTypingEvent = this.sendTypingEvent.bind(this)
+}
+
+sendTypingEvent() {
+  this.state.currentUser
+  .isTypingIn({ roomId: this.state.currentRoom.id })
+  .catch(error => console.error('error', error))
 }
 
 sendMessage(text) {
@@ -43,6 +52,18 @@ componentDidMount () {
             messages: [...this.state.messages, message],
           })
         },
+        onUserStartedTyping: user => {
+          this.setState({
+            userWhoAreTyping: [...this.state.usersWhoAreTyping, user.name]
+          })
+        }
+      },
+      onUserStoppedTyping: user => {
+        this.setState({
+          usersWhoAreTyping: this.state.usersWhoAreTyping.filter(
+            username => username !== user.name
+          ),
+        })
       },
     })
   })
@@ -89,7 +110,11 @@ componentDidMount () {
               messages={this.state.messages}
               style={styles.chatList}
               />
-              <SendMessageForm onSubmit={this.sendMessage} />
+              <TypingIndicator usersWhoAreTyping={this.state.usersWhoAreTyping} />
+              <SendMessageForm
+              onSubmit={this.sendMessage}
+              onChange={this.sendTypingEvent}
+              />
           </section>
         </div>
       </div>
