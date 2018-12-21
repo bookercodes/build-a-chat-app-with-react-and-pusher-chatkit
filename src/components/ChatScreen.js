@@ -3,6 +3,7 @@ import Chatkit from '@pusher/chatkit-client'
 import MessageList from './MessageList'
 import SendMessageForm from './SendMessageForm'
 import TypingIndicator from './TypingIndicator'
+import WhosOnlineList from './WhosOnlineList'
 
 class ChatScreen extends Component {
 constructor(props) {
@@ -44,7 +45,7 @@ componentDidMount () {
   .then(currentUser => {
     this.setState({ currentUser })
     return currentUser.subscribeToRoom({
-      roomId: "19392820",
+      roomId: '19392820',
       messageLimit: 100,
       hooks: {
         onMessage: message => {
@@ -65,7 +66,10 @@ componentDidMount () {
           ),
         })
       },
-    })
+        onPresenceChange: () => this.forceUpdate(),
+        onUserJoined: () => this.forceUpdate()
+      },
+    )
   })
   .then(currentRoom => {
     this.setState({ currentRoom })
@@ -103,7 +107,10 @@ componentDidMount () {
       <div style={styles.container}>
         <div style={styles.chatContainer}>
           <aside style={styles.whosOnlineListContainer}>
-              <h2>Whos online PLACEHOLDER</h2>
+              <WhosOnlineList
+                currentUser={this.state.currentUser}
+                users={this.state.currentRoom.users}
+              />
           </aside>
           <section style={styles.chatListContainer}>
               <MessageList
