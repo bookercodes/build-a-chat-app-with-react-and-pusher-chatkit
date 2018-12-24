@@ -27,7 +27,7 @@ app.post('/users', (req, res) => {
       if (error.error_type === 'services/chatkit/user_already_exists') {
         res.sendStatus(200)
       } else {
-        res.send(error.status).json(error)
+        res.status(error.status).json(error)
       }
     })
 })

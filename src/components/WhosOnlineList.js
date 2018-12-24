@@ -7,7 +7,7 @@ class WhosOnlineList extends Component {
       {this.props.users.map((user, index) => {
         if (user.id === this.props.currentUser.id) {
           return (
-            <WhosOnlineListItem key={index} presenceState="Online">
+            <WhosOnlineListItem key={index} presenceState="online">
               {user.name} (You)
             </WhosOnlineListItem>
           )
@@ -58,6 +58,7 @@ class WhosOnlineListItem extends Component {
               this.props.presenceState === 'online' ? '#539eff' : '#414756',
           }}
         />
+        {this.props.children}
       </li>
     )
   }
