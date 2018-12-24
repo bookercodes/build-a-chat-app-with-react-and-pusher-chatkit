@@ -5,6 +5,7 @@ import ChatScreen from './components/ChatScreen'
 class App extends Component {
   constructor() {
     super()
+    
     this.state = {
       currentUsername: '',
       currentScreen: 'WhatIsYourUsernameScreen'

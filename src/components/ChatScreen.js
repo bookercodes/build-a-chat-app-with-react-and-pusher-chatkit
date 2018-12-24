@@ -8,6 +8,7 @@ import WhosOnlineList from './WhosOnlineList'
 class ChatScreen extends Component {
 constructor(props) {
   super(props)
+
   this.state = {
     currentUser: {},
     currentRoom: {},
@@ -31,7 +32,7 @@ sendMessage(text) {
   })
 }
 
-componentDidMount () {
+componentDidMount() {
   const chatManager = new Chatkit.ChatManager({
     instanceLocator: 'v1:us1:92f6e0ea-dddd-478f-bca6-17bbc528eb78',
     userId: this.props.currentUsername,

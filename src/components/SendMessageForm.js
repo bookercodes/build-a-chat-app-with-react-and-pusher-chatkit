@@ -14,7 +14,7 @@ class SendMessageForm extends Component {
     onSubmit(event) {
       event.preventDefault()
       this.props.onSubmit(this.state.text)
-      this.setState({ text:'' })
+      this.setState({ text: '' })
     }
 
     onChange(event) {
@@ -48,18 +48,18 @@ class SendMessageForm extends Component {
       <div style={styles.container}>
         <div>
           <form onSubmit={this.onSubmit} style={styles.form}>
-          <input
-          type="text"
-          placeholder="Type a message here then hit ENTER"
-          onChange={this.state.text}
-          value={this.state.text}
-          style={styles.input}
-          />
-          </form>
+            <input
+              type="text"
+              placeholder="Type a message here then hit ENTER"
+              onChange={this.onChange}
+              value={this.state.text}
+              style={styles.input}
+            />
+            </form>
+          </div>
         </div>
-      </div>
-    )
-  }
+      )
+    }
   }
 
 
